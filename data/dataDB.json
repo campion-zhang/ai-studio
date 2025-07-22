@@ -1,0 +1,257 @@
+{
+  "providers": [
+    {
+      "id": "deepseek",
+      "name": "Deepseek",
+      "URL": "https://api.deepseek.com/v1",
+      "model": "",
+      "apiKey": "",
+      "enabled": false,
+      "order": 1,
+      "type": "",
+      "icon": "deepseek-color.svg"
+    },
+    {
+      "id": "ollama",
+      "name": "Ollama",
+      "URL": "http://localhost:11434",
+      "model": "",
+      "apiKey": "",
+      "enabled": false,
+      "order": 3,
+      "type": "",
+      "icon": "ollama.svg"
+    },
+    {
+      "id": "grok",
+      "name": "Grok",
+      "URL": "https://api.x.ai/v1",
+      "model": "",
+      "apiKey": "",
+      "enabled": false,
+      "order": 2,
+      "type": "",
+      "icon": "grok.svg"
+    },
+    {
+      "id": "qnaigc",
+      "name": "七牛云",
+      "URL": "https://api.qnaigc.com/v1",
+      "model": "",
+      "apiKey": "",
+      "enabled": false,
+      "order": 0,
+      "type": "",
+      "icon": "qiniu.svg"
+    },
+    {
+      "id": "ppinfra",
+      "name": "派欧云",
+      "URL": "https://api.ppinfra.com/v3/openai",
+      "model": "",
+      "apiKey": "",
+      "enabled": false,
+      "order": 6,
+      "type": "",
+      "icon": "ppio-color.svg"
+    },
+    {
+      "id": "generativelanguage",
+      "name": "Gemini",
+      "URL": "https://generativelanguage.googleapis.com",
+      "model": "",
+      "apiKey": "",
+      "enabled": false,
+      "order": 7,
+      "type": "",
+      "icon": "gemini-color.svg"
+    },
+    {
+      "id": "anthropic",
+      "name": "Anthropic",
+      "URL": "https://api.anthropic.com",
+      "model": "",
+      "apiKey": "",
+      "enabled": false,
+      "order": 4,
+      "type": "",
+      "icon": "claude-color.svg"
+    },
+    {
+      "id": "siliconflow",
+      "name": "硅基流动",
+      "URL": "https://api.siliconflow.cn/v1",
+      "model": "",
+      "apiKey": "",
+      "enabled": true,
+      "order": 5,
+      "type": "",
+      "icon": "siliconcloud-color.svg"
+    },
+    {
+      "id": "githubmodels",
+      "name": "GitHub Models",
+      "URL": "https://models.inference.ai.azure.com",
+      "model": "",
+      "apiKey": "",
+      "enabled": false,
+      "order": 8,
+      "type": "",
+      "icon": "github.svg"
+    },
+    {
+      "id": "githubcopilot",
+      "name": "GitHub Copilot",
+      "URL": "https://api.githubcopilot.com",
+      "model": "",
+      "apiKey": "",
+      "enabled": false,
+      "order": 9,
+      "type": "",
+      "icon": "githubcopilot.svg"
+    },
+    {
+      "id": "openai",
+      "name": "OpenAI",
+      "URL": "https://api.openai.com/v1",
+      "model": "",
+      "apiKey": "",
+      "enabled": false,
+      "order": 10,
+      "type": "",
+      "icon": "openai.svg"
+    },
+    {
+      "id": "doubao",
+      "name": "豆包",
+      "URL": "https://ark.cn-beijing.volces.com/api/v3",
+      "model": "",
+      "apiKey": "",
+      "enabled": false,
+      "order": 11,
+      "type": "",
+      "icon": "doubao-color.svg"
+    },
+    {
+      "id": "minimax",
+      "name": "MiniMax",
+      "URL": "https://api.minimax.chat/v1",
+      "model": "",
+      "apiKey": "",
+      "enabled": false,
+      "order": 12,
+      "type": "",
+      "icon": "minimax-color.svg"
+    },
+    {
+      "id": "fireworks",
+      "name": "Fireworks",
+      "URL": "https://api.fireworks.ai/inference/v1",
+      "model": "",
+      "apiKey": "",
+      "enabled": false,
+      "order": 13,
+      "type": "",
+      "icon": "fireworks-color.svg"
+    },
+    {
+      "id": "zhipu",
+      "name": "智普",
+      "URL": "https://open.bigmodel.cn/api/paas/v4/",
+      "model": "",
+      "apiKey": "",
+      "enabled": false,
+      "order": 14,
+      "type": "",
+      "icon": "zhipu-color.svg"
+    },
+    {
+      "id": "moonshot",
+      "name": "月之暗面",
+      "URL": "https://api.moonshot.cn/v1",
+      "model": "",
+      "apiKey": "",
+      "enabled": false,
+      "order": 15,
+      "type": "",
+      "icon": "moonshot.svg"
+    },
+    {
+      "id": "aliyunbailian",
+      "name": "阿里云百炼",
+      "URL": "https://dashscope.aliyuncs.com/compatible-mode/v1",
+      "model": "",
+      "apiKey": "",
+      "enabled": false,
+      "order": 16,
+      "type": "",
+      "icon": "alibabacloud-color.svg"
+    },
+    {
+      "id": "lmstudio",
+      "name": "LM Studio",
+      "URL": "http://127.0.0.1:1234/v1",
+      "model": "",
+      "apiKey": "",
+      "enabled": false,
+      "order": 17,
+      "type": "",
+      "icon": "lmstudio.svg"
+    },
+    {
+      "id": "aihubmix",
+      "name": "AIHubMix",
+      "URL": "https://aihubmix.com/v1",
+      "model": "",
+      "apiKey": "",
+      "enabled": false,
+      "order": 18,
+      "type": "",
+      "icon": "aihubmix.png"
+    },
+    {
+      "id": "together",
+      "name": "Together",
+      "URL": "https://api.together.xyz/v1",
+      "model": "",
+      "apiKey": "",
+      "enabled": false,
+      "order": 19,
+      "type": "",
+      "icon": "together-color.svg"
+    },
+    {
+      "id": "hunyuan",
+      "name": "混元",
+      "URL": "https://api.hunyuan.cloud.tencent.com/v1",
+      "model": "",
+      "apiKey": "",
+      "enabled": false,
+      "order": 21,
+      "type": "",
+      "icon": "hunyuan-color.svg"
+    },
+    {
+      "id": "openrouter",
+      "name": "OpenRouter",
+      "URL": "https://openrouter.ai/api/v1",
+      "model": "",
+      "apiKey": "",
+      "enabled": false,
+      "order": 22,
+      "type": "",
+      "icon": "openrouter.svg"
+    },
+    {
+      "id": "302.ai",
+      "name": "302.AI",
+      "URL": "https://api.302.ai/v1",
+      "model": "",
+      "apiKey": "",
+      "enabled": false,
+      "order": 20,
+      "type": "",
+      "icon": "302ai.svg"
+    }
+  ]
+}
