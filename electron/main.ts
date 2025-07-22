@@ -2,7 +2,6 @@ import { app, BrowserWindow, ipcMain } from 'electron'
 import { createRequire } from 'node:module'
 import { fileURLToPath } from 'node:url'
 import path from 'node:path'
-import axios from 'axios'
 import dotenv from 'dotenv'
 
 import { 
@@ -13,11 +12,9 @@ import {
   updateAllProvider,
 } from '../src/db/providerDb'
 import { Provider } from '../src/types/preload.d'
-import { listModelsForProvider } from '../src/utils/modelManager'
+import { listModelsForProvider, chatToModel } from '../src/utils/providerApi'
 
 dotenv.config()
-//const API_MODEL='https://api.siliconflow.cn/v1/models'
-const API_CHAT='https://api.siliconflow.cn/v1/chat/completions'
 
 const require = createRequire(import.meta.url)
 require('module-alias/register') // Register module aliases
@@ -84,26 +81,11 @@ function createWindow() {
   })
 
   // 模型对话接口
-  ipcMain.handle('chat-to-model', async (_event, payload: { messages: any[]; model: string }) => {
-    const { messages, model } = payload
-    const apiKey = process.env.SILICON_API_KEY
-
-    const response = await axios.post(
-      API_CHAT,
-      {
-        model,
-        messages,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${apiKey}`,
-          'Content-Type': 'application/json',
-        },
-      }
-    )
-
-    return response.data.choices[0].message.content
+  ipcMain.handle('chat-to-model', async (_event, { providerId, model, messages }) => {
+    console.log(`Chatting with model: ${model} on provider: ${providerId}`, messages)
+    return await chatToModel(providerId, model, messages)
   })
+
 
   // Test active push message to Renderer-process.
   win.webContents.on('did-finish-load', () => {

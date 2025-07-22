@@ -6,9 +6,13 @@ declare global {
       maximize: () => void
       close: () => void
       
-      chatToModel: (payload: { messages: any[]; model: string }) => Promise<string>
       getEnabledProvider: () => Promise<Provider[] | undefined>
       listModels: (providerId: string) => Promise<{ id: string; name: string }[]>
+      chatToModel: (payload: {
+          providerId: string
+          model: string
+          messages: { role: string; content: string }[]
+      }) => Promise<string>
 
       getProviders: () => Promise<Provider[]>
       addProvider: (provider: Provider) => Promise<void>

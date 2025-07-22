@@ -30,7 +30,8 @@ contextBridge.exposeInMainWorld('electronAPI', {
   maximize: () => ipcRenderer.send('window-maximize'),
   close: () => ipcRenderer.send('window-close'),
   
-  chatToModel: (payload: { messages: any[]; model: string }) => ipcRenderer.invoke('chat-to-model', payload),
+  chatToModel: async (payload: { providerId: string, model: string, messages: any[] }) => 
+    ipcRenderer.invoke('chat-to-model', payload),
   getEnabledProvider: () => ipcRenderer.invoke('get-enabled-provider'),
   listModels: (providerId: string) => ipcRenderer.invoke('list-models', providerId),
 

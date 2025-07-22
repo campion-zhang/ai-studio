@@ -71,11 +71,13 @@ const sendMessage = async () => {
     const content = inputValue.value
     if (!content) return
 
-    if (!selectedModel.value) {
-        alert('请选择模型')
-        return
+    const selected = chatStore.selectedModel
+    if (!selected) {
+      alert('请选择模型')
+      return
     }
 
+    const [providerId, model] = selected.split('::')
     const time = new Date().toISOString()
     chatStore.addMessage({ role: 'user', content, time })
 
@@ -85,8 +87,9 @@ const sendMessage = async () => {
 
     try {
         const reply = await window.electronAPI.chatToModel({
+            providerId,
+            model,
             messages: chatStore.messages.map(({ role, content }) => ({ role, content })),
-            model: chatStore.selectedModel as string
         })
 
         chatStore.addMessage({
