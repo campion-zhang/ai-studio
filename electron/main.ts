@@ -12,7 +12,8 @@ import {
   updateAllProvider,
 } from '../src/db/providerDb'
 import { Provider } from '../src/types/preload.d'
-import { listModelsForProvider, chatToModel } from '../src/utils/providerApi'
+import { listModelsForProvider } from '../src/utils/modelManager'
+import { chatToModel } from '../src/utils/chatManager'
 
 dotenv.config()
 
@@ -71,18 +72,19 @@ function createWindow() {
   ipcMain.handle('provider:updateAll', (_event, providers: Provider[]) => updateAllProvider(providers))
 
   ipcMain.handle('get-enabled-provider', async () => {
+    console.log('Fetching enabled providers...')
     const providers = await getProviders()
     return providers.filter(p => p.enabled)
   })
 
   // 返回模型列表
   ipcMain.handle('list-models', async (_event, providerId: string) => {
+    console.log(`Listing models for provider: ${providerId}`)
     return await listModelsForProvider(providerId)
   })
 
   // 模型对话接口
   ipcMain.handle('chat-to-model', async (_event, { providerId, model, messages }) => {
-    console.log(`Chatting with model: ${model} on provider: ${providerId}`, messages)
     return await chatToModel(providerId, model, messages)
   })
 

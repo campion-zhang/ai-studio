@@ -3,7 +3,7 @@
   <div class="chat-header" >
     <ChatHeaderBar
       v-if="ready"
-      :model-value="selectedModelId"
+      v-model="selectedModelId"
       :providers="providers"
       :models-map="modelsMap"
       @update:modelValue="updateModel"
@@ -24,7 +24,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, watch } from 'vue'
 import { useChatStore } from '../utils/chat'
 import type { Provider } from '../types/preload.d'
 
@@ -37,6 +37,12 @@ const providers = ref<Provider[]>([])
 const modelsMap = ref<Record<string, string[]>>({})
 const selectedModelId = ref('')
 const ready = ref(false)
+
+watch(selectedModelId, (val) => {
+  const [providerId, model] = val.split('::')
+  chatStore.providerId = providerId
+  chatStore.selectedModel = model
+})
 
 // 监听选中变化并保存
 function updateModel(val: string) {
@@ -60,6 +66,7 @@ async function handleLoadModels(providerId: string) {
 }
 
 onMounted(async () => {
+  console.log('ChatView mounted, loading providers...')
   try {
     const result = await window.electronAPI.getEnabledProvider()
     const enabledProviders: Provider[] = Array.isArray(result) ? result : []
@@ -80,6 +87,7 @@ onMounted(async () => {
   } finally {
     ready.value = true
   }
+  console.log('ChatView mounted, providers loaded:', providers.value)
 })
 
 </script>
@@ -93,7 +101,7 @@ onMounted(async () => {
 
 .chat-area {
   /*padding-top: 0px;*/   /* 顶部工具栏高度 + margin */
-  padding-top: 40px;   /* 顶部工具栏高度 + margin */
+  padding-top: 45px;   /* 顶部工具栏高度 + margin */
   width: 100%;
   box-sizing: border-box;
 }

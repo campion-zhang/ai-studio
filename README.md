@@ -11,19 +11,8 @@ Electron + node.jsÖĞ¶Ôsplite3¼æÈİĞÔ²»Ì«ºÃ£¬ËùÒÔ»á´æÔÚÓÃ²»ÁËµÄÇé¿ö¡£Òò´Ë¹¤¾ßÖĞÊ¹Ó
     lowdb ÊÇÒ»¸ö·Ç³£ÇáÁ¿¼¶µÄ±¾µØ JSON ÎÄ¼şÊı¾İ¿â£¬·Ç³£ÊÊºÏ Electron + Vue3 + TypeScript + Vite ÏîÄ¿ÓÃ×÷±¾µØÅäÖÃ»òÊı¾İ³Ö¾Ã»¯´æ´¢£¬
     ±ÈÈç£ºÓÃ»§ÉèÖÃ¡¢ÀúÊ·¼ÇÂ¼¡¢Ğ¡Á¿½á¹¹»¯Êı¾İµÈ¡£ÓÅµã£º´æ´¢¸ñÊ½ÊÇJSON ÎÄ¼ş£¨ÈËÀà¿É¶Á£©¡¢ÎŞĞè°²×°Êı¾İ¿â·şÎñ¡¢Ö§³Ö Lodash ·ç¸ñÁ´Ê½²éÑ¯¡¢ÊÊºÏÇ°¶Ë¡¢×ÀÃæÓ¦ÓÃ¡¢Ğ¡ĞÍÊı¾İ´æ´¢µÈ¡£
 
-1¡¢ÏîÄ¿ĞèÒªµÄÒÀÀµ
-npm install vue electron axios dotenv pinia lowdb@2
-npm install marked highlight.js dompurify
-npm install naive-ui better-sqlite3
-npm install vite-svg-loader --save-dev
-npm install vuedraggable@next  # °²×°ÍÏ×§¿â
-npm install @types/lowdb@2
-npm install element-plus
 
 
-npm uninstall vite
-npm install @vitejs/plugin-vue@5.0.0
-npm install lowdb @types/lowdb
 ÇåÀí»º´æºÍ±àÒëÎÄ¼ş£º
 
 rm -rf node_modules
@@ -36,6 +25,7 @@ npm cache clean --force
 2¡¢build
    cd sietium-ai-studio
    npm install --verbose    # °²×°ÒÀÀµ
+   npm install lowdb @types/lowdb element-plus
    npm run dev              # Æô¶¯ÏîÄ¿
    npm run build            # ´ò°ü·¢²¼
 
