@@ -3,6 +3,7 @@ import { createRequire } from 'node:module'
 import { fileURLToPath } from 'node:url'
 import path from 'node:path'
 import dotenv from 'dotenv'
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'fs'
 
 import { 
   getProviders, 
@@ -20,6 +21,17 @@ dotenv.config()
 const require = createRequire(import.meta.url)
 require('module-alias/register') // Register module aliases
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
+
+const historyFilePath  = path.join(__dirname, '../data', 'chat-history.json')
+console.log('chat data path:', historyFilePath)
+
+// 检查文件是否存在
+const dir = path.dirname(historyFilePath)
+console.log("historyFilePath:", historyFilePath);
+if (!existsSync(dir)) {
+    mkdirSync(dir, { recursive: true })
+    console.log('Created chat data directory:', dir)
+}
 
 // The built directory structure
 //
@@ -88,6 +100,19 @@ function createWindow() {
     return await chatToModel(providerId, model, messages)
   })
 
+  ipcMain.handle('chat:loadHistory', () => {
+    console.log('Loading chat history from:', historyFilePath)
+    if (!existsSync(historyFilePath)) {
+      writeFileSync(historyFilePath, '[]', 'utf-8')
+    }
+    return readFileSync(historyFilePath, 'utf-8')
+  })
+
+  ipcMain.handle('chat:saveHistory', (_event, messages: any[]) => {
+    alert('请选择模型')
+    console.log('Saving chat history to:', historyFilePath)
+    writeFileSync(historyFilePath, JSON.stringify(messages, null, 2), 'utf-8')
+  })
 
   // Test active push message to Renderer-process.
   win.webContents.on('did-finish-load', () => {

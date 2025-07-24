@@ -59,7 +59,6 @@ async function callProviderChat(provider: Provider, model: string, messages: any
     body: JSON.stringify({
       model,
       messages,
-      stream: true,
       temperature: 0.7
     })
   })

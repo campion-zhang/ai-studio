@@ -40,7 +40,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, nextTick } from 'vue'
+import { ref, computed, nextTick, onMounted } from 'vue'
 import { useChatStore } from '../utils/chat'
 import { marked } from 'marked'
 import userIcon from '../assets/avatar/user.png'
@@ -66,6 +66,10 @@ const formatTime = (iso: string) => {
     return `${Y}-${M}-${D} ${h}:${m}:${s}`
 }
 
+onMounted(() => {
+  chatStore.loadMessages()
+})
+
 const sendMessage = async () => {
     const content = inputValue.value
     if (!content) return
@@ -83,36 +87,37 @@ const sendMessage = async () => {
     inputValue.value = ''
     scrollToBottom()
 
-    const pendingIndex = chatStore.messages.length
+    // 插入“AI 正在回复…”的占位消息
+    const pendingTime = new Date().toISOString()
+    chatStore.addMessage({ 
+      role: 'ai', 
+      content: '__PENDING__', 
+      time: pendingTime
+    })
+    const pendingIndex = chatStore.messages.length - 1
+    scrollToBottom()
+
     const all = await window.electronAPI.getProviders()
     const provider = all.find(p => p.id === providerId)
     if (!provider) {
-      chatStore.messages[pendingIndex] = {
+      await chatStore.updateMessage(pendingIndex, {
         role: 'ai',
         content: `请求失败：找不到提供商 ${providerId}`,
-        time: new Date().toISOString(),
-      }
+        time: new Date().toISOString()
+      })
       scrollToBottom()
       return
     }
 
     if (!provider.apiKey) {
-      chatStore.messages[pendingIndex] = {
+      await chatStore.updateMessage(pendingIndex, {
         role: 'ai',
         content: `请求失败：提供商 ${providerId} 未配置 API Key`,
-        time: new Date().toISOString(),
-      }
+        time: new Date().toISOString()
+      })
       scrollToBottom()
       return
     }
-
-    // 插入等待消息
-    chatStore.addMessage({ 
-      role: 'ai', 
-      content: '__PENDING__', 
-      time: new Date().toISOString() 
-    })
-    scrollToBottom()
 
     try {
         const reply = await window.electronAPI.chatToModel({
@@ -124,19 +129,18 @@ const sendMessage = async () => {
             //  .map(({ role, content }) => ({ role, content })),
         })
 
-        chatStore.messages[pendingIndex] = {
+        await chatStore.updateMessage(pendingIndex, {
           role: 'ai',
           content: reply,
           time: new Date().toISOString()
-        }
+        })
         scrollToBottom()
-        inputValue.value = ''
     } catch (e) {
-        chatStore.messages[pendingIndex] = {
+        await chatStore.updateMessage(pendingIndex, {
           role: 'ai',
           content: '出错了：' + String(e),
           time: new Date().toISOString()
-        }
+        })
         scrollToBottom()
     }
 }
@@ -231,6 +235,16 @@ const scrollToBottom = async () => {
   white-space: pre-wrap;
   word-break: break-word;
   position: relative;
+}
+.bubble pre {
+  background: #f6f8fa;
+  padding: 10px;
+  border-radius: 6px;
+  overflow-x: auto;
+}
+.bubble code {
+  font-family: monospace;
+  font-size: 13px;
 }
 
 .chat-message.user .bubble {

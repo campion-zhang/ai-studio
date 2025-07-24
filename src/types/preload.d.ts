@@ -19,6 +19,9 @@ declare global {
       updateProvider: (provider: Provider) => Promise<void>
       removeProvider: (id: string) => Promise<void>
       updateAllProvider: (providers: Provider[]) => Promise<void>
+
+      saveMessages: (messages: any[]) => Promise<void>
+      loadMessages: () => Promise<string>
     }
   }
 }

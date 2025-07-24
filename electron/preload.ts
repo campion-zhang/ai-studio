@@ -40,4 +40,7 @@ contextBridge.exposeInMainWorld('electronAPI', {
   updateProvider: (provider: Provider) => ipcRenderer.invoke('provider:update', provider),
   removeProvider: (id: string) => ipcRenderer.invoke('provider:remove', id),
   updateAllProvider: (providers: Provider[]) => ipcRenderer.invoke('provider:updateAll', providers),
+
+  saveMessages: (messages: any[]) => ipcRenderer.invoke('chat:saveHistory', messages),
+  loadMessages: () => ipcRenderer.invoke('chat:loadHistory'),
 })
